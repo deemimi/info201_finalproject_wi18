@@ -1,0 +1,12 @@
+name: bystate
+title:
+username:
+account: bobcheese21
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 291605
+bundleId: 1248748
+url: https://bobcheese21.shinyapps.io/bystate/
+when: 1519987263.27136
+asMultiple: FALSE
+asStatic: FALSE
