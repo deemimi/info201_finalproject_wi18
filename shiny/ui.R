@@ -31,10 +31,32 @@ mapThisPov <- filter(mapThisPov, Year == a[1])
 
 # Define UI for application that draws map for various data
 shinyUI(navbarPage(
-  
-  "State Level Rent/Poverty Data Project",
-  
   # Application title
+  "State Level Rent/Poverty Data Project", 
+  
+  #INTRO TO PROJECT SECTION
+  tabPanel("Rent Rates",
+           
+           # Sidebar with a slider input
+           sidebarLayout(
+             sidebarPanel(
+               #Select Input for cereal data to be plotted
+               sliderInput("slider1", label = h3("By month from 2010 - 2018"), min = 1, 
+                           max = length(cycle)-1, value = 20)
+               #sliderInput("slider1", label = h3("By year from 1989 - 2016"), min = a[1], 
+               #   max = a[length(a)], value = 1989)
+               #  selectInput("data", "Select Data",
+               # choices = c('Zillow Housing Prices', 'Poverty Estimates')
+             ),
+             
+             mainPanel(
+               plotOutput("rentPlot")
+               
+             )
+           )
+  ),
+  
+  #ABOUT US SECTION
   navbarMenu("About us!",
              tabPanel("Mimi Du",
                       h1("I'm Mimi Du", align = "center"),
@@ -61,7 +83,7 @@ shinyUI(navbarPage(
                       p("I am also a self-proclaimed caffeine addict with no real hobbies!", align = "center"),
                       HTML('<center><img src="https://jennyyozimmermann.files.wordpress.com/2014/11/coffee-addict-dude-7-to-wake-up.png" width="300" height="300" alt="This is a rock"</img></center>'))),
 
-  # Application title
+  #RENT RATE PER STATE VISUALIZATION SECTION
   tabPanel("Rent Rates",
            
            # Sidebar with a slider input
@@ -83,9 +105,7 @@ shinyUI(navbarPage(
            )
   ),
   
-  
-  
-  # Application title
+  #POVERTY RATE BY STATE VISUALIZATION SECTION
   tabPanel("Poverty Rates by Year",
            
            # Sidebar with a slider input
@@ -107,6 +127,7 @@ shinyUI(navbarPage(
            )
   ),
   
+  #LOOKING AT THE CORRELATIONS BETWEEN POVERTY AND RENT SECTION
   tabPanel("State Rent/Poverty Correlations",
            titlePanel("Correlation Between Poverty and Rent Rates"), 
            sidebarLayout(
@@ -124,6 +145,7 @@ shinyUI(navbarPage(
            
            ),
   
+  #SUMMARY/CONCLUSIONS SECTION
   tabPanel("Summary/Intersting Conclusions"
            
            
