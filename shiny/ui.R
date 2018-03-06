@@ -85,9 +85,18 @@ shinyUI(navbarPage(
            )
   ),
   
-  tabPanel("State Rent/Poverty Correlations"
-           
-           
+  tabPanel("State Rent/Poverty Correlations",
+           titlePanel("Correlation Between Poverty and Rent Rates"), 
+           sidebarLayout(
+             sidebarPanel(
+               radioButtons("selectData", "Dataset", list("Poverty", "Rent Rates") ),
+               includeMarkdown("correlation.md")
+             ),
+             
+             mainPanel(
+               tableOutput("dataTable")
+             )
+           )
            
            
            

@@ -49,5 +49,14 @@ shinyServer(function(input, output) {
     
   })
   
+  output$dataTable <- renderTable({
+    if (input$selectData == "Poverty") {
+      dataset <- newPov
+    } else {
+      dataset <- rent
+    }
+    return (dataset)
+  }, bordered = TRUE, hover = TRUE, striped = TRUE)
+  
 })
 
