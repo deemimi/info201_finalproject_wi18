@@ -1,4 +1,4 @@
-library("RColorBrewer")
+library('httr')
 library('dplyr')
 library('mapproj')
 library('ggplot2')
@@ -7,8 +7,9 @@ library('fiftystater')
 library('maptools')
 library('maps')
 library('data.table')
+library("RColorBrewer")
+library('jsonlite')
 
-setwd("~/Desktop/info_final/byState")
 rent <- fread('State_Zri_MultiFamilyResidenceRental.csv', stringsAsFactors = F)
 
 usa <- map_data('usa')
@@ -30,5 +31,8 @@ mapThis <- left_join(fifty_states, new, by = 'RegionName')
 cycle <- colnames(mapThis)[8:94]
 cycle$ind <- seq(1:length(cycle))
 colors <- mapThis[8:94]
-#call sightings in md to render plot REPLACE MAPTHIS WITH INPUT DATA
-#mapUSA <- ggplot(mapThis, aes(long, lat)) + geom_polygon(aes(group = group, fill = mapThis[,51])) + coord_fixed(1.3)
+#prep map
+data('fifty_states')
+colnames(fifty_states) <- c("long",  "lat"   ,"order" ,"hole",  "piece", "RegionName",    "group")
+mapThis <- left_join(fifty_states, new, by = 'RegionName')
+
