@@ -48,7 +48,7 @@ shinyServer(function(input, output) {
     
     
   })
-  
+
   output$dataTable <- renderTable({
     if (input$selectData == "Poverty") {
       dataset <- newPov
