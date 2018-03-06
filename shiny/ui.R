@@ -35,29 +35,13 @@ shinyUI(navbarPage(
   "State Level Rent/Poverty Data Project", 
   
   #INTRO TO PROJECT SECTION
-  tabPanel("Rent Rates",
-           
-           # Sidebar with a slider input
-           sidebarLayout(
-             sidebarPanel(
-               #Select Input for cereal data to be plotted
-               sliderInput("slider1", label = h3("By month from 2010 - 2018"), min = 1, 
-                           max = length(cycle)-1, value = 20)
-               #sliderInput("slider1", label = h3("By year from 1989 - 2016"), min = a[1], 
-               #   max = a[length(a)], value = 1989)
-               #  selectInput("data", "Select Data",
-               # choices = c('Zillow Housing Prices', 'Poverty Estimates')
-             ),
-             
-             mainPanel(
-               plotOutput("rentPlot")
-               
-             )
-           )
+  tabPanel("Introduction",
+           includeHTML("intro.html")
   ),
   
   #ABOUT US SECTION
   navbarMenu("About us!",
+             #each subtab will contain some information and a relevant image about team member
              tabPanel("Mimi Du",
                       h1("I'm Mimi Du", align = "center"),
                       p("I'm a senior at UW studying applied math! Specifically scientific computing & numerical analysis.", align = "center"), 
@@ -146,7 +130,7 @@ shinyUI(navbarPage(
            ),
   
   #SUMMARY/CONCLUSIONS SECTION
-  tabPanel("Summary/Intersting Conclusions"
+  tabPanel("Summary/Interesting Conclusions"
            
            
            )
