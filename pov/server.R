@@ -24,6 +24,7 @@ newPov$Name <- tolower(newPov$Name)
 data('fifty_states')
 colnames(fifty_states) <- c("long",  "lat"   ,"order" ,"hole",  "piece", "Name",    "group")
 mapThisPov <- left_join(fifty_states, newPov, by = 'Name')
+print(mapThisPov)
 a <- as.numeric(mapThisPov['Year'][1:nrow(mapThisPov['Year']),])
 a <- unique(a)
 
