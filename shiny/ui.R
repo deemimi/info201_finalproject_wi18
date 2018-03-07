@@ -99,7 +99,7 @@ shinyUI(navbarPage(
            sidebarLayout(
              sidebarPanel(
                #Select Input for cereal data to be plotted
-               sliderInput("slider2", label = h3("year of data"), min = a[1], 
+               sliderInput("slider2", label = h3("Year of data"), min = a[1], 
                            max = a[length(a)], value = 1)
                #sliderInput("slider1", label = h3("By year from 1989 - 2016"), min = a[1], 
                #   max = a[length(a)], value = 1989)
