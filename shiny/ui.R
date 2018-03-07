@@ -33,9 +33,9 @@ mapThisPov <- filter(mapThisPov, Year == a[1])
 shinyUI(navbarPage(
   # Application title
   "State Level Rent/Poverty Data Project", 
-  
   #INTRO TO PROJECT SECTION
   tabPanel("Introduction",
+           h3('	According to our data, rent rates and poverty levels tend to correlate inversely for each state. This means that where rent rates are higher, poverty rates tend to be lower.  We have found that this correlation between Zillow rent rates and poverty levels is statistically significant for most states. This is based off a significance level of .005. '),
            includeHTML("intro.html")
   ),
   
@@ -117,7 +117,7 @@ shinyUI(navbarPage(
   ),
   
   #LOOKING AT THE CORRELATIONS BETWEEN POVERTY AND RENT SECTION
-  tabPanel("State Rent/Poverty Correlations",
+  tabPanel("Findings",
            titlePanel("Correlation Between Poverty and Rent Rates"), 
            sidebarLayout(
              sidebarPanel(
