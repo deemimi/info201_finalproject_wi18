@@ -35,6 +35,13 @@ a <- as.numeric(mapThisPov['Year'][1:nrow(mapThisPov['Year']),])
 a <- unique(a)
 
 
+correl <- read.csv("CorrelationSig.csv")
+
+newnewpov <- read.csv("PovDataNew.csv", header = F)
+colnames(newnewpov) <- as.character(newnewpov[1,])
+newnewpov <- newnewpov[-1,]
+colnames(newnewpov)[1] <- "Name"
+
 # Define server logic for choosing value to plot
 shinyServer(function(input, output) {
   output$povertyPlot <- renderPlot({ 
@@ -48,13 +55,30 @@ shinyServer(function(input, output) {
   })
 
   output$dataTable <- renderTable({
-    if (input$selectData == "Poverty") {
-      dataset <- newPov
+    if (input$selectData == "Poverty Estimates") {
+      dataset <- newnewpov
+    } else if (input$selectData == "Correlation Dataset") {
+      dataset <- correl
+      dataset <- select(dataset, -X)
     } else {
       dataset <- rent[,2:90]
+      dataset <- select(dataset, -SizeRank)
     }
     return (dataset)
   }, bordered = TRUE, hover = TRUE, striped = TRUE)
+  
+  output$text <- renderText({
+    if (input$selectData == "Correlation Dataset") {
+      x <- "According to our data, rent rates and poverty levels tend to correlate inversely for each state. This means that where rent rates are higher, poverty rates tend to be lower. Perhaps this is because where there is less poverty more people are able to afford more costly rent, therefore landlords would charge higher rates.
+
+                      We have found that this correlation between Zillow rent rates and poverty levels is statistically significant for the following states:
+                      Arizona, California, Florida, Georgia, Hawaii, Idaho, Indiana, Iowa, Kentucky, Maine, Michigan, Mississippi, Montana, Nevada, New Hampshire, North Carolina, Ohio    , Oklahoma, Oregon, Pennsylvania, South Carolina, Tennessee, Texas, Utah, Washington, Wisconsin, and Wyoming.
+                      
+                      This is based off a significance level of .005."
+      return (x)
+  
+    }
+  })
   
 })
 

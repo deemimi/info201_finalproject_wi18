@@ -121,12 +121,14 @@ shinyUI(navbarPage(
            titlePanel("Correlation Between Poverty and Rent Rates"), 
            sidebarLayout(
              sidebarPanel(
-               radioButtons("selectData", "Dataset", list("Poverty", "Rent Rates") ),
+               radioButtons("selectData", "Dataset", list("Poverty Estimates", "Rent Rates", "Correlation Dataset") ),
                includeMarkdown("correlation.md")
              ),
              
              mainPanel(
+               textOutput("text"),
                tableOutput("dataTable")
+               
              )
            )
            
