@@ -8,6 +8,7 @@ library('maptools')
 library('maps')
 library('data.table')
 library("RColorBrewer")
+library("stringr")
 
 # Don't delete this
 source("load-viz-one.R")
@@ -33,18 +34,19 @@ print(mapThisPov)
 a <- as.numeric(mapThisPov['Year'][1:nrow(mapThisPov['Year']),])
 a <- unique(a)
 
+
 # Define server logic for choosing value to plot
 shinyServer(function(input, output) {
   output$povertyPlot <- renderPlot({ 
     mapThisPov <- filter(mapThisPov, Year == input$slider2)
-    ggplot(mapThisPov, aes(long, lat)) + geom_polygon(aes(group = group, fill = as.numeric(Estimate)*10)) + coord_fixed(1.3) + ggtitle('Poverty Levels by state per year')
+    ggplot(mapThisPov, aes(long, lat)) + geom_polygon(aes(group = group, fill = as.numeric(Estimate))) + coord_fixed(1.3) + ggtitle('Poverty Levels by state per year') + guides(fill=guide_legend("Poverty Rates (%)"))
     
     
   })
   
   output$rentPlot <- renderPlot({ 
     #mapThis <- filter(mapThis, Year == a[input$slider1])
-    ggplot(mapThis, aes(long, lat)) + geom_polygon(aes(group = group, fill = mapThis[cycle[[input$slider1]]])) + coord_fixed(1.3) + ggtitle('Zillow Rent Prices per state per year')
+    ggplot(mapThis, aes(long, lat)) + geom_polygon(aes(group = group, fill = mapThis[cycle[[input$slider1]]])) + coord_fixed(1.3) + ggtitle('Zillow Rent Prices per state per year') + guides(fill=guide_legend("Average Rents ($)"))
     
     
   })
@@ -53,7 +55,7 @@ shinyServer(function(input, output) {
     if (input$selectData == "Poverty") {
       dataset <- newPov
     } else {
-      dataset <- rent
+      dataset <- rent[,2:90]
     }
     return (dataset)
   }, bordered = TRUE, hover = TRUE, striped = TRUE)
