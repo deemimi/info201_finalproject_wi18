@@ -127,13 +127,8 @@ shinyUI(navbarPage(
            
            
            
-           ),
-  
-  #SUMMARY/CONCLUSIONS SECTION
-  tabPanel("Summary/Interesting Conclusions"
-           
-           
            )
+  
   )
 )
 
