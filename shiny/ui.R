@@ -83,7 +83,8 @@ shinyUI(navbarPage(
              ),
              
              mainPanel(
-               p("The following visualization displays the Zillow Rent Index score for each state in the United States."),
+               p("The following visualization displays the median Zillow Rent Index score for each state in the United States."),
+               p("The lighter the color, the higher the median rent rate!"),
                p("Move the slider on the right to change the year of the data."),
                plotOutput("rentPlot")
                
@@ -108,6 +109,7 @@ shinyUI(navbarPage(
              
              mainPanel(
                p("The following visualization displays the poverty level for each state in the United States."),
+               p("The lighter the color, the higher the poverty rate!"),
                p("Move the slider on the right to change the year of the data."),
                plotOutput("povertyPlot")
              )
