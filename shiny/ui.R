@@ -83,6 +83,8 @@ shinyUI(navbarPage(
              ),
              
              mainPanel(
+               p("The following visualization displays the Zillow Rent Index score for each state in the United States."),
+               p("Move the slider on the right to change the year of the data."),
                plotOutput("rentPlot")
                
              )
