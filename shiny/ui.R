@@ -107,8 +107,9 @@ shinyUI(navbarPage(
              ),
              
              mainPanel(
+               p("The following visualization displays the poverty level for each state in the United States."),
+               p("Move the slider on the right to change the year of the data."),
                plotOutput("povertyPlot")
-               
              )
            )
   ),
