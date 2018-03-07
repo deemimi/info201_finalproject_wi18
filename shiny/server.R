@@ -37,7 +37,7 @@ a <- unique(a)
 shinyServer(function(input, output) {
   output$povertyPlot <- renderPlot({ 
     mapThisPov <- filter(mapThisPov, Year == input$slider2)
-    ggplot(mapThisPov, aes(long, lat)) + geom_polygon(aes(group = group, fill = as.numeric(Estimate)*10)) + coord_fixed(1.3) + ggtitle('Poverty Levels by state per year')
+    ggplot(mapThisPov, aes(long, lat)) + geom_polygon(aes(group = group, fill = as.numeric(Estimate)*10)) + coord_fixed(1.3) + labs(title = paste("Poverty level by state in", input$slider2))
     
     
   })
