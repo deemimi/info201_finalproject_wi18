@@ -10,13 +10,10 @@ library('data.table')
 library("RColorBrewer")
 library("stringr")
 library(rmarkdown)
-
-# Don't delete this
 source("load-viz-one.R")
-
+#load data
 url <- 'https://api.census.gov/data/timeseries/poverty/saipe?get=NAME,SAEPOVRTALL_LB90,SAEPOVRTALL_MOE,SAEPOVRTALL_PT,SAEPOVRTALL_UB90&for=state:*&time=from+1980'
 response <- GET(url)
-
 body <- content(response, 'text')
 povData <- data.frame(fromJSON(body), stringsAsFactors = F)
 colnames(povData) <- c('Name', "LowerBound", 'MarginOfError', 'Estimate', 'UpperBound', 'Year', 'state.name')
@@ -33,10 +30,8 @@ colnames(fifty_states) <- c("long",  "lat"   ,"order" ,"hole",  "piece", "Name",
 mapThisPov <- left_join(fifty_states, newPov, by = 'Name')
 a <- as.numeric(mapThisPov['Year'][1:nrow(mapThisPov['Year']),])
 a <- unique(a)
-
-
+#prep findings correlation
 correl <- read.csv("CorrelationSig.csv")
-
 newnewpov <- read.csv("PovDataNew.csv", header = F)
 colnames(newnewpov) <- as.character(newnewpov[1,])
 newnewpov <- newnewpov[-1,]
@@ -45,15 +40,19 @@ colnames(newnewpov)[1] <- "Name"
 # Define server logic for choosing value to plot
 shinyServer(function(input, output) {
   output$povertyPlot <- renderPlot({ 
+    #define how pov data changes
     mapThisPov <- filter(mapThisPov, Year == input$slider2)
-    ggplot(mapThisPov, aes(long, lat)) + geom_polygon(aes(group = group, fill = as.numeric(Estimate)*10)) + coord_fixed(1.3) + labs(title = paste("Poverty level by state in", input$slider2))
+    # plot pov data
+    #ggplot(mapThisPov, aes(long, lat)) + geom_polygon(aes(group = group, fill = as.numeric(Estimate)*10)) + coord_fixed(1.3) + labs(title = paste("Poverty level by state in", input$slider2))
+    #plot rent data
     ggplot(mapThisPov, aes(long, lat)) + geom_polygon(aes(group = group, fill = as.numeric(Estimate))) + coord_fixed(1.3) + labs(title = paste("Poverty level by state in", input$slider2)) + guides(fill=guide_legend("Poverty Rates (%)"))
   })
   
   output$rentPlot <- renderPlot({ 
+    #plot rent data
     ggplot(mapThis, aes(long, lat)) + geom_polygon(aes(group = group, fill = mapThis[,input$slider1])) + coord_fixed(1.3) + labs(title = paste("Rent level by state", cycle[[input$slider1]])) + guides(fill=guide_legend("Average Rents ($)"))
   })
-
+  #show datasets
   output$dataTable <- renderTable({
     if (input$selectData == "Poverty Estimates") {
       dataset <- newnewpov
@@ -66,7 +65,7 @@ shinyServer(function(input, output) {
     }
     return (dataset)
   }, bordered = TRUE, hover = TRUE, striped = TRUE)
-  
+  #describe findings
   output$text <- renderText({
     if (input$selectData == "Correlation Dataset") {
       x <- "According to our data, rent rates and poverty levels tend to correlate inversely for each state. This means that where rent rates are higher, poverty rates tend to be lower. Perhaps this is because where there is less poverty more people are able to afford more costly rent, therefore landlords would charge higher rates.
