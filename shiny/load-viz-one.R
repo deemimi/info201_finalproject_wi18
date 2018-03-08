@@ -29,7 +29,8 @@ colnames(fifty_states) <- c("long",  "lat"   ,"order" ,"hole",  "piece", "Region
 mapThis <- left_join(fifty_states, new, by = 'RegionName')
 
 cycle <- colnames(mapThis)[8:94]
-cycle$ind <- seq(1:length(cycle))
+ind <- seq(1:87)
+cycle <- data.frame(ind, cycle)
 colors <- mapThis[8:94]
 #prep map
 data('fifty_states')

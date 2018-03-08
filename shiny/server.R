@@ -9,6 +9,7 @@ library('maps')
 library('data.table')
 library("RColorBrewer")
 library("stringr")
+library(rmarkdown)
 
 # Don't delete this
 source("load-viz-one.R")
@@ -30,7 +31,6 @@ newPov$Name <- tolower(newPov$Name)
 data('fifty_states')
 colnames(fifty_states) <- c("long",  "lat"   ,"order" ,"hole",  "piece", "Name",    "group")
 mapThisPov <- left_join(fifty_states, newPov, by = 'Name')
-print(mapThisPov)
 a <- as.numeric(mapThisPov['Year'][1:nrow(mapThisPov['Year']),])
 a <- unique(a)
 
@@ -51,7 +51,7 @@ shinyServer(function(input, output) {
   })
   
   output$rentPlot <- renderPlot({ 
-    ggplot(mapThis, aes(long, lat)) + geom_polygon(aes(group = group, fill = mapThis[cycle[[input$slider1]]])) + coord_fixed(1.3) + labs(title = paste("Rent level by state", cycle[[input$slider1]])) + guides(fill=guide_legend("Average Rents ($)"))
+    ggplot(mapThis, aes(long, lat)) + geom_polygon(aes(group = group, fill = mapThis[,input$slider1])) + coord_fixed(1.3) + labs(title = paste("Rent level by state", cycle[[input$slider1]])) + guides(fill=guide_legend("Average Rents ($)"))
   })
 
   output$dataTable <- renderTable({

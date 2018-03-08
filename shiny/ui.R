@@ -9,6 +9,9 @@ library('maps')
 library('data.table')
 library('jsonlite')
 library("RColorBrewer")
+library(rmarkdown)
+source("load-viz-one.R")
+
 url <- 'https://api.census.gov/data/timeseries/poverty/saipe?get=NAME,SAEPOVRTALL_LB90,SAEPOVRTALL_MOE,SAEPOVRTALL_PT,SAEPOVRTALL_UB90&for=state:*&time=from+1980'
 response <- GET(url)
 body <- content(response, 'text')
@@ -27,7 +30,6 @@ colnames(fifty_states) <- c("long",  "lat"   ,"order" ,"hole",  "piece", "Name",
 mapThisPov <- left_join(fifty_states, newPov, by = 'Name')
 a <- as.numeric(mapThisPov['Year'][1:nrow(mapThisPov['Year']),])
 a <- unique(a)
-mapThisPov <- filter(mapThisPov, Year == a[1])
 
 # Define UI for application that draws map for various data
 shinyUI(navbarPage(
@@ -74,8 +76,7 @@ shinyUI(navbarPage(
            sidebarLayout(
              sidebarPanel(
                #Select Input for cereal data to be plotted
-               sliderInput("slider1", label = h3("By month from 2010 - 2018"), min = 1, 
-                           max = length(cycle)-1, value = 20)
+               selectInput("slider1", label = h3("By month from 2010 - 2018"), choices = cycle$cycle)
                #sliderInput("slider1", label = h3("By year from 1989 - 2016"), min = a[1], 
                #   max = a[length(a)], value = 1989)
                #  selectInput("data", "Select Data",
@@ -99,8 +100,7 @@ shinyUI(navbarPage(
            sidebarLayout(
              sidebarPanel(
                #Select Input for cereal data to be plotted
-               sliderInput("slider2", label = h3("Year of data"), min = a[1], 
-                           max = a[length(a)], value = 1)
+               selectInput("slider2", label = h3("Year of data"), choices = a)
                #sliderInput("slider1", label = h3("By year from 1989 - 2016"), min = a[1], 
                #   max = a[length(a)], value = 1989)
                #  selectInput("data", "Select Data",
