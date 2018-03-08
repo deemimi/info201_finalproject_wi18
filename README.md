@@ -1,7 +1,7 @@
 # info201_finalproject_wi18
 
 ## TEAM BOUNDLESSS
-
+LINK TO APP : https://bobcheese21.shinyapps.io/BE_BOUNDLESS_FINAL_PROJ/
 ### Project Description
 
 For our final project, we will be working data from **The United States Census Bureau API** and the **Zillow Research** website. Our goal is to map levels poverty rates in the United States and rental rates in the United States at the state level and see if there is a correlation between those two observations. We think that there may be a correlation of there being higher poverty rates as rental rates increase in the United States due to people not being able to afford the housing. Our target audience is anyone trying to gain insight into 3 things: 1) poverty rates in the United Sates at the state level, 2) rental rates in the United States at state level, 3) those curious to see how the two variables correlate with one another. Our audience would be looking to compare this data between states and across years. Three specific questions that our project will answer are 1) Which states have the highest and lowest relative poverty rates in the United States? 2) Which states have the highest and lowest relative property rates in the United States? and 3) Is there a correlation between these two observations?
